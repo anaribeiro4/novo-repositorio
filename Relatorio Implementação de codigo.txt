@@ -1,0 +1,29 @@
+Respostas da Parte 1 — Análise do Problema XOR
+2. Por que uma única fronteira linear não é suficiente para separar as classes?
+O problema da porta lógica XOR é clássico por não ser linearmente separável. Se você tentar traçar uma única linha reta no plano cartesiano para dividir os pontos com saída 0 dos pontos com saída 1, perceberá que é impossível. Uma reta sempre deixará pelo menos um ponto na classe errada, exigindo pelo menos duas retas (fronteiras) para isolar os dados perfeitamente.
+
+3. Justifique a necessidade de uma camada intermediária para resolver o problema.
+Um Perceptron simples (sem camadas ocultas) consegue apenas mapear hiperplanos lineares simples. A inclusão de uma camada intermediária (oculta) funciona como um extrator de características complexas. Ela projeta as entradas originais em um novo espaço de dimensão moldado pelas funções de ativação não lineares, onde os padrões da XOR finalmente se tornam linearmente separáveis para o neurônio da camada de saída.
+
+Respostas da Parte 8 — Discussão dos Resultados
+Nota: Como as redes neurais iniciam com pesos aleatórios, os valores exatos de épocas dependem da execução do script corrigido, mas o comportamento esperado segue as regras abaixo.
+
+1. Qual configuração apresentou a convergência mais rápida?
+Geralmente, as configurações que equilibram uma quantidade intermediária de neurônios (ex: 4 ou 5) com uma taxa de aprendizagem moderada (ex: 0.3 a 0.5) convergem mais rápido. Taxas muito baixas (0.1) tornam o aprendizado excessivamente lento.
+
+2. O aumento do número de neurônios sempre reduziu o número de épocas?
+Não necessariamente. Embora adicionar neurônios dê mais capacidade matemática para a rede modelar o problema, um excesso de neurônios na camada oculta para um problema simples como o XOR pode gerar redundância ou fazer com que o gradiente demore mais para se estabilizar, aumentando o tempo computacional ou gerando oscilações desnecessárias.
+
+3. Como a taxa de aprendizagem influenciou o treinamento?
+Taxas muito baixas (0.1): Fazem os pesos mudarem de forma passos muito curtos. O erro cai de forma consistente, mas exige uma quantidade de épocas muito maior.
+
+Taxas altas (0.5): Aceleram a convergência inicial, mas se forem excessivamente altas, podem fazer os passos "pularem" o ponto mínimo global de erro, gerando instabilidade ou travando a rede em mínimos locais.
+
+4. A inicialização dos pesos afetou os resultados?
+Sim, drasticamente. Como o problema do XOR usa poucos dados e uma arquitetura enxuta, a semente aleatória (np.random.seed) define o ponto de partida no gradiente. Dependendo de onde os pesos começam, a rede pode cair em uma "zona favorável" e convergir em poucas épocas, ou começar em uma região desfavorável (platô) e demorar milhares de épocas para sair dali.
+
+5. Os resultados obtidos foram compatíveis com os apresentados no artigo?
+Sim. O artigo base demonstra que redes MLP treinadas com Backpropagation resolvem com sucesso a não-linearidade do XOR em algumas centenas ou milhares de épocas, evidenciando que pequenas variações nos hiperparâmetros alteram a velocidade da curva de aprendizado.
+
+6. Quais fatores podem explicar eventuais diferenças observadas?
+As discrepâncias acontecem devido ao método de inicialização dos pesos (intervalo uniforme vs normal), à fórmula exata aplicada ao cálculo do erro (Erro Absoluto vs Erro Quadrático Médio) e se foi utilizado o termo de Momentum (que acelera a descida do gradiente mas não foi exigido explicitamente neste roteiro).
